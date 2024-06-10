@@ -18,10 +18,13 @@
         });
 
         document.addEventListener('htmx:afterRequest', function(event) {
-            if (event.detail.verb === 'POST' && event.detail.path === "/add_item/") {
+            if (event.detail.xhr && event.detail.xhr.responseURL.endsWith("{% url 'add_item' %}")) {
                 const form = document.querySelector('#add-item-form');
                 form.reset();  // Clear the form for the next input
                 form.querySelector('input[type="text"]').focus();  // Focus on the input field
+
+                console.log('Item added');
+
             }
         });
 
